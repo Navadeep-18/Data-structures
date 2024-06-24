@@ -1,0 +1,87 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define the structure for a linked list node
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+// Function to create a new linked list node
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Function to insert a node at the beginning of the linked list
+void insertAtBeginning(Node** head, int data) {
+    Node* newNode = createNode(data);
+    newNode->next = *head;
+    *head = newNode;
+}
+
+// Function to insert a node at the end of the linked list
+void insertAtEnd(Node** head, int data) {
+    Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        Node* temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+// Function to insert a node at a specific position in the linked list
+void insertAtPosition(Node** head, int data, int position) {
+    Node* newNode = createNode(data);
+    if (position == 0) {
+        insertAtBeginning(head, data);
+    } else {
+        Node* temp = *head;
+        int i = 0;
+        while (i < position - 1 && temp->next != NULL) {
+            temp = temp->next;
+            i++;
+        }
+        newNode->next = temp->next;
+        temp->next = newNode;
+    }
+}
+
+// Function to print the linked list
+void printList(Node* head) {
+    while (head != NULL) {
+        printf("%d ", head->data);
+        head = head->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    Node* head = NULL;
+
+    insertAtBeginning(&head, 1);
+    insertAtBeginning(&head, 2);
+    insertAtBeginning(&head, 3);
+
+    printf("Linked List: ");
+    printList(head);
+
+    insertAtEnd(&head, 4);
+    insertAtEnd(&head, 5);
+
+    printf("Linked List: ");
+    printList(head);
+
+    insertAtPosition(&head, 6, 2);
+
+    printf("Linked List: ");
+    printList(head);
+
+    return 0;
+}
