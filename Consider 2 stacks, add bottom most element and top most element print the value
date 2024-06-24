@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 100
+
+typedef struct Stack {
+    int data[MAX_SIZE];
+    int top;
+} Stack;
+
+void init_stack(Stack* stack) {
+    stack->top = -1;
+}
+
+void push(Stack* stack, int element) {
+    if (stack->top == MAX_SIZE - 1) {
+        printf("Stack overflow!\n");
+        return;
+    }
+    stack->data[++stack->top] = element;
+}
+
+int pop(Stack* stack) {
+    if (stack->top == -1) {
+        printf("Stack underflow!\n");
+        return -1;
+    }
+    return stack->data[stack->top--];
+}
+
+int get_bottom(Stack* stack) {
+    return stack->data[0];
+}
+
+int get_top(Stack* stack) {
+    return stack->data[stack->top];
+}
+
+void add_bottom_top(Stack* stack1, Stack* stack2) {
+    int bottom1 = get_bottom(stack1);
+    int top1 = get_top(stack1);
+    int bottom2 = get_bottom(stack2);
+    int top2 = get_top(stack2);
+    printf("Sum of bottom and top elements: %d + %d = %d\n", bottom1, top1, bottom1 + top1);
+    printf("Sum of bottom and top elements: %d + %d = %d\n", bottom2, top2, bottom2 + top2);
+}
+
+int main() {
+    Stack stack1, stack2;
+    init_stack(&stack1);
+    init_stack(&stack2);
+
+    push(&stack1, 1);
+    push(&stack1, 2);
+    push(&stack1, 3);
+    push(&stack1, 4);
+    push(&stack1, 5);
+
+    push(&stack2, 6);
+    push(&stack2, 7);
+    push(&stack2, 8);
+    push(&stack2, 9);
+    push(&stack2, 10);
+
+    add_bottom_top(&stack1, &stack2);
+
+    return 0;
+}
