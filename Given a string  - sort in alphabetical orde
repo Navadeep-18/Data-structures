@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <string.h>
+
+void sortString(char str[]) {
+    int i, j;
+    char temp;
+
+    // Sort the string in alphabetical order
+    for (i = 0; i < strlen(str) - 1; i++) {
+        for (j = i + 1; j < strlen(str); j++) {
+            if (str[i] > str[j]) {
+                temp = str[i];
+                str[i] = str[j];
+                str[j] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    char input[100];
+
+    // Get the input string from the user
+    printf("Enter a string: ");
+    fgets(input, 100, stdin);
+
+    // Remove the newline character from the input string
+    input[strcspn(input, "\n")] = '\0';
+
+    // Sort the string in alphabetical order
+    sortString(input);
+
+    // Print the sorted string
+    printf("Sorted string: %s\n", input);
+
+    return 0;
+}
