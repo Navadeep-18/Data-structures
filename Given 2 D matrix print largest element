@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+#define MAX_ROWS 100
+#define MAX_COLS 100
+
+int main() {
+    int matrix[MAX_ROWS][MAX_COLS];
+    int rows, cols, i, j, max_element;
+
+    printf("Enter the number of rows and columns of the matrix: ");
+    scanf("%d %d", &rows, &cols);
+
+    printf("Enter the elements of the matrix:\n");
+    for (i = 0; i < rows; i++) {
+        for (j = 0; j < cols; j++) {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+
+    max_element = matrix[0][0];  // Assume the first element is the largest initially
+
+    for (i = 0; i < rows; i++) {
+        for (j = 0; j < cols; j++) {
+            if (matrix[i][j] > max_element) {
+                max_element = matrix[i][j];
+            }
+        }
+    }
+
+    printf("The largest element in the matrix is: %d\n", max_element);
+
+    return 0;
+}
