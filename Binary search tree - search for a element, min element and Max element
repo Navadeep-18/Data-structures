@@ -1,0 +1,87 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define the structure for a node in the binary search tree
+typedef struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+} Node;
+
+// Function to create a new node
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+// Function to insert a new node into the binary search tree
+Node* insertNode(Node* root, int data) {
+    if (root == NULL) {
+        return createNode(data);
+    }
+    if (data < root->data) {
+        root->left = insertNode(root->left, data);
+    } else if (data > root->data) {
+        root->right = insertNode(root->right, data);
+    }
+    return root;
+}
+
+// Function to search for an element in the binary search tree
+int searchNode(Node* root, int data) {
+    if (root == NULL) {
+        return 0;
+    }
+    if (root->data == data) {
+        return 1;
+    }
+    if (data < root->data) {
+        return searchNode(root->left, data);
+    } else {
+        return searchNode(root->right, data);
+    }
+}
+
+// Function to find the minimum element in the binary search tree
+int findMinElement(Node* root) {
+    if (root == NULL) {
+        return -1;
+    }
+    if (root->left == NULL) {
+        return root->data;
+    }
+    return findMinElement(root->left);
+}
+
+// Function to find the maximum element in the binary search tree
+int findMaxElement(Node* root) {
+    if (root == NULL) {
+        return -1;
+    }
+    if (root->right == NULL) {
+        return root->data;
+    }
+    return findMaxElement(root->right);
+}
+
+int main() {
+    Node* root = NULL;
+    root = insertNode(root, 10);
+    root = insertNode(root, 5);
+    root = insertNode(root, 15);
+    root = insertNode(root, 3);
+    root = insertNode(root, 7);
+    root = insertNode(root, 12);
+    root = insertNode(root, 20);
+
+    printf("Searching for element 7: %d\n", searchNode(root, 7));
+    printf("Searching for element 8: %d\n", searchNode(root, 8));
+
+    printf("Minimum element: %d\n", findMinElement(root));
+    printf("Maximum element: %d\n", findMaxElement(root));
+
+    return 0;
+}
