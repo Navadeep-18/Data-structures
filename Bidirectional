@@ -1,0 +1,113 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define the structure for a bidirectional linked list node
+typedef struct Node {
+    int data;
+    struct Node* next;
+    struct Node* prev;
+} Node;
+
+// Function to create a new bidirectional linked list node
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    newNode->prev = NULL;
+    return newNode;
+}
+
+// Function to insert a node at the beginning of the bidirectional linked list
+void insertAtBeginning(Node** head, Node** tail, int data) {
+    Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        *tail = newNode;
+    } else {
+        newNode->next = *head;
+        (*head)->prev = newNode;
+        *head = newNode;
+    }
+}
+
+// Function to insert a node at the end of the bidirectional linked list
+void insertAtEnd(Node** head, Node** tail, int data) {
+    Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        *tail = newNode;
+    } else {
+        newNode->prev = *tail;
+        (*tail)->next = newNode;
+        *tail = newNode;
+    }
+}
+
+// Function to insert a node at a specific position in the bidirectional linked list
+void insertAtPosition(Node** head, Node** tail, int data, int position) {
+    Node* newNode = createNode(data);
+    if (position == 0) {
+        insertAtBeginning(head, tail, data);
+    } else {
+        Node* temp = *head;
+        int i = 0;
+        while (i < position - 1 && temp->next!= NULL) {
+            temp = temp->next;
+            i++;
+        }
+        newNode->next = temp->next;
+        newNode->prev = temp;
+        if (temp->next!= NULL) {
+            temp->next->prev = newNode;
+        } else {
+            *tail = newNode;
+        }
+        temp->next = newNode;
+    }
+}
+
+// Function to print the bidirectional linked list
+void printList(Node* head) {
+    while (head!= NULL) {
+        printf("%d ", head->data);
+        head = head->next;
+    }
+    printf("\n");
+}
+
+// Function to print the bidirectional linked list in reverse order
+void printListReverse(Node* tail) {
+    while (tail!= NULL) {
+        printf("%d ", tail->data);
+        tail = tail->prev;
+    }
+    printf("\n");
+}
+
+int main() {
+    Node* head = NULL;
+    Node* tail = NULL;
+
+    insertAtBeginning(&head, &tail, 1);
+    insertAtBeginning(&head, &tail, 2);
+    insertAtBeginning(&head, &tail, 3);
+
+    printf("Linked List: ");
+    printList(head);
+
+    insertAtEnd(&head, &tail, 4);
+    insertAtEnd(&head, &tail, 5);
+
+    printf("Linked List: ");
+    printList(head);
+
+    insertAtPosition(&head, &tail, 6, 2);
+
+    printf("Linked List: ");
+    printList(head);
+
+    printf("Linked List (Reverse): ");
+    printListReverse(tail);
+
+    return 0;
+}
