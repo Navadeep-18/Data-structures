@@ -1,0 +1,52 @@
+#include <stdio.h>
+
+#define ROWS 3
+#define COLS 3
+
+void printArray(int arr[ROWS][COLS]) {
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            printf("%d ", arr[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void calculateRowSums(int arr[ROWS][COLS]) {
+    for (int i = 0; i < ROWS; i++) {
+        int sum = 0;
+        for (int j = 0; j < COLS; j++) {
+            sum += arr[i][j];
+        }
+        printf("Row %d sum: %d\n", i, sum);
+    }
+}
+
+void calculateColSums(int arr[ROWS][COLS]) {
+    for (int j = 0; j < COLS; j++) {
+        int sum = 0;
+        for (int i = 0; i < ROWS; i++) {
+            sum += arr[i][j];
+        }
+        printf("Col %d sum: %d\n", j, sum);
+    }
+}
+
+int main() {
+    int arr[ROWS][COLS] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+
+    printf("Original array:\n");
+    printArray(arr);
+
+    printf("Row sums:\n");
+    calculateRowSums(arr);
+
+    printf("Column sums:\n");
+    calculateColSums(arr);
+
+    return 0;
+}
