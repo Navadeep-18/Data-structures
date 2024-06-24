@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+void findMissingElements(int arr[], int size) {
+    int i, j;
+    int flag;
+
+    printf("Missing elements in the array are: ");
+
+    for (i = 1; i <= size + 1; i++) {
+        flag = 0;
+        for (j = 0; j < size; j++) {
+            if (arr[j] == i) {
+                flag = 1;
+                break;
+            }
+        }
+        if (flag == 0) {
+            printf("%d ", i);
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    int arr[] = {1, 3, 5, 4, 7, 2, 8};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    findMissingElements(arr, size);
+
+    return 0;
+}
